@@ -1,0 +1,62 @@
+# General simulation settings
+data_set = 'a3lb3-set-1467-clipped.txt'     # Experimental data for positive sweep
+data_reset = 'a3lb3-reset-1468-clipped.txt' # Experimental data for negative sweep
+Vp = 3.75             # Max. voltage for positive sweep
+Vm = -3.75            # Min. voltage for negative sweep
+t_sweep_plus = 4.335  # Time taken for sweep in positive direction, from 0 to Vp to 0
+t_sweep_minus = 4.335 # Time taken for sweep in negative direction, from 0 to Vm to 0
+t_wait = 10.0         # Time delay between pos. and neg. sweeps
+maxiter = 20          # Max. number of optimisation iterations
+
+# Fixed parameters
+[fixed]
+CC = 0.003   # Current compliance
+EI = 2.4e-9  # Current at 0
+isb = 10.0   # If isb is large, vt is probably not used
+vt = 0.0     # vt can give an extra kink to the set jump after a certain I_BF is reached
+H0 = 0.0     # Initial memory value
+ri = 1.0
+RPP = 1e10   # Parallel resistor for stability
+
+# Variable parameters for optimisation (set to initial values)
+[variable]
+vs = 1.92    # Set point voltage
+vr = -1.1    # Reset point voltage
+ion = 0.06082317342389332
+ioff = 5.7e-06
+aon = 2.15
+aoff = 1.4
+ron = 8.89
+roff = 750  # "Flatness"/skewness
+etas = 77.2 # Set jump speed
+etar = 70                 # Reset jump speed
+gam = 0.49
+
+# Parameters ranges for optimisation
+[bounds]
+vs = [1.5, 2.0]
+vr = [-1.5, -0.7]
+ion = [3.7e-2, 3e-1] # Bigger than ioff
+ioff = [450e-8, 1e-4]
+aon = [1.75, 3000.0]
+aoff = [1.0, 2.3]
+ron = [8.0, 10000.0]
+roff = [1.0, 3000.0]
+etas = [5.0, 77.2]
+etar = [15.0, 100.0]
+gam = [0.2, 0.7]
+# Not needed since isb is assumed large (fixed)
+# Not needed since vt won't be used (fixed to 0)
+
+[bound_types]
+vs_type = 'lin'
+vr_type = 'lin'
+ion_type = 'geom'
+ioff_type = 'geom'
+aon_type = 'lin'
+aoff_type = 'lin'
+ron_type = 'geom'
+roff_type = 'geom'
+etas_type = 'geom'
+etar_type = 'lin'
+gam_type = 'lin'

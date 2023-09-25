@@ -1,0 +1,13 @@
+* Simple memdiode circuit
+Xdmm A 0 H AM_memdiode H0={H0} ri={ri} RPP={RPP} beta={beta} EI={EI} etas={etas} vs={vs} etar={etar} vr={vr} ion={ion} aon={aon} ron={ron} ioff={ioff} aoff={aoff} roff={roff} vt={vt} isb={isb} gam={gam}
+R_h H 0 10Meg
+
+Rcomp + A R=if(I(Rcomp)<{CC},1,V(+,A)/{CC})
+
+* V1 + 0 SINE(0 3.7 1)
+V1 + 0 PWL(0 0 0.25 1 0.75 -1 1 0)
+
+.lib C:\Users\rafae\ltspice\DMM_SiOx.cir
+.save v(+) v(dmm) Ix(dmm)
+.backanno
+.end

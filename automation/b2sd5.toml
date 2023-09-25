@@ -1,0 +1,62 @@
+# General simulation settings
+data_set = 'b2sd5-set-1695.txt'     # Experimental data for positive sweep
+data_reset = 'b2sd5-reset-1694.txt' # Experimental data for negative sweep
+Vp = 12.0             # Max. voltage for positive sweep
+Vm = -10.0            # Min. voltage for negative sweep
+t_sweep_plus = 13.872 # Time taken for sweep in positive direction, from 0 to Vp to 0
+t_sweep_minus = 11.56 # Time taken for sweep in negative direction, from 0 to Vm to 0
+t_wait = 10.0         # Time delay between pos. and neg. sweeps
+maxiter = 20          # Max. number of optimisation iterations
+
+# Fixed parameters
+[fixed]
+vs = 2.20    # Set point voltage
+CC = 0.003   # Current compliance
+EI = 9e-8  # Current at 0
+isb = 10.0   # If isb is large, vt is probably not used
+vt = 0.0     # vt can give an extra kink to the set jump after a certain I_BF is reached
+H0 = 0.0     # Initial memory value
+ri = 1.0
+RPP = 1e10   # Parallel resistor for stability
+
+# Variable parameters for optimisation (set to initial values)
+[variable]
+vr = -1.1    # Reset point voltage
+ion = 0.08362961654414525
+ioff = 0.01
+aon = 2.33
+aoff = 0.01
+ron = 57
+roff = 2000  # "Flatness"/skewness
+etas = 75    # Set jump speed
+etar = 20    # Reset jump speed
+gam = 0.3
+
+# Parameters ranges for optimisation
+[bounds]
+# vs = [2.2, 2.3]
+vr = [-2.0, -1.0]
+ion = [1e-9, 1.0] # Bigger than ioff
+ioff = [1e-9, 1.0]
+aon = [0.001, 3.0]
+aoff = [0.001, 1.0]
+ron = [0.0001, 1.0]
+roff = [1e1, 8e3]
+etas = [50.0, 100.0]
+etar = [7.0, 100.0]
+gam = [0.1, 0.9]
+# Not needed since isb is assumed large (fixed)
+# Not needed since vt won't be used (fixed to 0)
+
+[bound_types]
+vs_type = 'lin'
+vr_type = 'lin'
+ion_type = 'geom'
+ioff_type = 'geom'
+aon_type = 'lin'
+aoff_type = 'geom'
+ron_type = 'geom'
+roff_type = 'geom'
+etas_type = 'lin'
+etar_type = 'lin'
+gam_type = 'lin'
